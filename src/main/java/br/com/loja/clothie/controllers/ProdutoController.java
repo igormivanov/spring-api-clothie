@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,30 +18,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.clothie.models.ProdutoModel;
 import br.com.loja.clothie.services.ProdutoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value = "/produto")
+@RequestMapping(value = "/api/v1/produto")
+@Api(value = "API REST Produtos")
+@CrossOrigin(origins="*")
 public class ProdutoController {
 	
 	@Autowired
 	private ProdutoService produtoService;
 	
-	// ESTUDO - IMPLEMENTAR UM CRUD
+	// ESTUDO - IMPLEMENTAR UMA API COM OS PRINCIPAIS MÉTODOS HTTP
 	
-	// CREATE
+	
 	@PostMapping
+	@ApiOperation(value="Salvar um produto")
 	private ResponseEntity<ProdutoModel> saveProduto(@RequestBody ProdutoModel produtoModel){
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(produtoModel));
 	}
 	
-	// READ
 	@GetMapping
+	@ApiOperation(value="Retornar uma lista de produtos")
 	private ResponseEntity<List<ProdutoModel>> getAllProducts(){
 		return ResponseEntity.status(HttpStatus.OK).body(produtoService.findAll());	
 	}
 	
-	// READ 2
-	@GetMapping(value = "/{id}")
+	@GetMapping("/{id}")
+	@ApiOperation(value="Retornar um produto por id")
 	public ResponseEntity<Object> findByProduto(@PathVariable(value="id") Integer id){
 		
 		Optional<ProdutoModel> produtoModelOptional = produtoService.findById(id);
@@ -50,8 +56,8 @@ public class ProdutoController {
 		return ResponseEntity.status(HttpStatus.OK).body(produtoModelOptional.get());
 	}
 	
-	// UPDATE
-	@PutMapping(value = "/{id}")
+	@PutMapping("/{id}")
+	@ApiOperation(value="Atualizar um produto")
 	public ResponseEntity<Object> updateProduto(@PathVariable(value="id") Integer id, 
 			@RequestBody ProdutoModel produtoModel){
 		
@@ -64,8 +70,9 @@ public class ProdutoController {
 		return ResponseEntity.status(HttpStatus.OK).body(produtoService.save(produtoModel));
 	}
 	
-	// DELETE
-	@DeleteMapping(value = "/{id}")
+	
+	@DeleteMapping("/{id}")
+	@ApiOperation(value="Deletar um produto")
 	public ResponseEntity<Object> deleteProduto(@PathVariable(value="id") Integer id){
 		
 		Optional<ProdutoModel> produtoModelOptional = produtoService.findById(id);
