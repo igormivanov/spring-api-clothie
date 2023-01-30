@@ -1,5 +1,7 @@
 package br.com.loja.clothie.models;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,46 +15,46 @@ public class ProdutoModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(nullable = false)
-	private String loja;
+	private String nome;
 	
 	@Column(nullable = false, length = 3)
-	private String modelo;
+	private String medida;
 	
 	@Column(nullable = false)
 	private String cor;
 	
 	@Column(nullable = false)
-	private Double valor;
+	private BigDecimal preco;
 	
 	@Column(nullable = false)
 	private Integer quantidade;
+
 	
-	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getLoja() {
-		return loja;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setLoja(String loja) {
-		this.loja = loja;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getModelo() {
-		return modelo;
+	public String getMedida() {
+		return medida;
 	}
 
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
+	public void setMedida(String medida) {
+		this.medida = medida;
 	}
 
 	public String getCor() {
@@ -63,12 +65,12 @@ public class ProdutoModel {
 		this.cor = cor;
 	}
 
-	public Double getValor() {
-		return valor;
+	public BigDecimal getPreco() {
+		return preco;
 	}
 
-	public void setValor(Double valor) {
-		this.valor = valor;
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
 	}
 
 	public Integer getQuantidade() {
@@ -78,7 +80,5 @@ public class ProdutoModel {
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-	
-	
 	
 }

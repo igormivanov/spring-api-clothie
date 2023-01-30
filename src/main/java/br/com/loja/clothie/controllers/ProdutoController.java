@@ -28,13 +28,13 @@ public class ProdutoController {
 	// ESTUDO - IMPLEMENTAR UM CRUD
 	
 	// CREATE
-	@PostMapping(value = "/salvar")
+	@PostMapping
 	private ResponseEntity<ProdutoModel> saveProduto(@RequestBody ProdutoModel produtoModel){
 		return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.save(produtoModel));
 	}
 	
 	// READ
-	@GetMapping(value = "/listar")
+	@GetMapping
 	private ResponseEntity<List<ProdutoModel>> getAllProducts(){
 		return ResponseEntity.status(HttpStatus.OK).body(produtoService.findAll());	
 	}
@@ -45,7 +45,7 @@ public class ProdutoController {
 		
 		Optional<ProdutoModel> produtoModelOptional = produtoService.findById(id);
 		if(!produtoModelOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O id fornecido não foi encontrado");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto id not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(produtoModelOptional.get());
 	}
@@ -57,7 +57,7 @@ public class ProdutoController {
 		
 		Optional<ProdutoModel> produtoModelOptional = produtoService.findById(id);
 		if(!produtoModelOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O id fornecido não foi encontrado");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto id not found");
 		}
 		
 		produtoModel.setId(produtoModelOptional.get().getId());
@@ -71,11 +71,11 @@ public class ProdutoController {
 		Optional<ProdutoModel> produtoModelOptional = produtoService.findById(id);
 		
 		if(!produtoModelOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O id fornecido não foi encontrado");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto id not found");
 		}
 		
 		produtoService.delete(produtoModelOptional.get());
-		return ResponseEntity.status(HttpStatus.OK).body("DELETADO");
+		return ResponseEntity.status(HttpStatus.OK).body("Produto deleted successfully");
 	}
 }
 
